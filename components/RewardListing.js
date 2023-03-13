@@ -6,27 +6,40 @@ import { updateShowAddRewards } from "../redux/slice/rewardsSlice";
 
 function RewardListing() {
 
-    const [rewardsSelected, setRewardsSelected] = useState(false);
+    const [rewardsSelected, setRewardsSelected] = useState(true);
     const rewards = useSelector(state => state.rewards.rewards);
     const dispatch = useDispatch();
+
+    const getRewardsData = () => {
+        if(!rewardsSelected) {
+            return (
+                rewards.filter((item) => {
+                    return (item.rewardTo.name == "Jane Doe")
+                })
+            )
+        }
+        else {
+            return rewards
+        }
+    }
 
     return(
         <View style={styles.containerStyle}>
             <View style={styles.buttonsContainer}>
                 <Pressable 
-                    style={[styles.pressableStyle,{backgroundColor: rewardsSelected ? "#e4e2df" : "white"}]}
+                    style={[styles.pressableStyle,{backgroundColor: rewardsSelected ? "white" : "#e4e2df"}]}
                     onPress={() => setRewardsSelected(true)}>
                     <Text style={styles.buttonTitleStyle}>Feed</Text>
                 </Pressable>
                 <Pressable 
-                    style={[styles.pressableStyle,{backgroundColor: !rewardsSelected ? "#e4e2df" : "white"}]}
+                    style={[styles.pressableStyle,{backgroundColor: !rewardsSelected ? "white" : "#e4e2df"}]}
                     onPress={() => setRewardsSelected(false)}>
                     <Text style={styles.buttonTitleStyle}>My Rewards</Text>
                 </Pressable>
             </View>
             <FlatList
-                data={rewards}
-                extraData={rewards}
+                data={getRewardsData()}
+                extraData={getRewardsData()}
                 renderItem={(item) => {
                     return (
                         <RewardItem reward={item.item}/>

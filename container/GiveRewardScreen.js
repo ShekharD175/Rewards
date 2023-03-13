@@ -2,6 +2,7 @@ import { View, StyleSheet, Modal, Text, TextInput, Pressable, Alert} from "react
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { setReward, updateShowAddRewards } from "../redux/slice/rewardsSlice"
+import { getRandomImgURL } from "../helper/helper"
 
 function GiveRewardScreen() {
 
@@ -15,11 +16,11 @@ function GiveRewardScreen() {
             const reward = {
                 rewardTo: {
                   name: rewardTo,
-                  imageUrl: "https://randomuser.me/api/portraits/men/31.jpg",
+                  imageUrl: getRandomImgURL(),
                   rewardAmount: rewardAmount,
                 },
                 rewardBy: "Jane Doe",
-                timeStamp: "Feb 1, 2021",
+                timeStamp: getTimeStampValue(),
                 discription: rewardMessage
             }
             dispatch(setReward(reward));
@@ -46,7 +47,9 @@ function GiveRewardScreen() {
     }
 
     return(
-        <Modal>
+        <Modal
+            animationType="slide"
+            transparent={true}>
             <View style={{flex: 1, backgroundColor: "#0000006D"}}>
                 <View style={styles.containerStyle}>
                     <Text style={styles.titleTextStyle}>Give reward</Text>

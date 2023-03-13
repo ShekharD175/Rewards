@@ -1,6 +1,5 @@
 import { View, StyleSheet} from "react-native"
-import { useSelector, useDispatch } from "react-redux";
-import { setReward } from "../redux/slice/rewardsSlice";
+import { useSelector } from "react-redux";
 import ProfileItem from "../components/ProfileItem";
 import RewardListing from "../components/RewardListing";
 import GiveRewardScreen from "./GiveRewardScreen";
@@ -9,12 +8,6 @@ function RewardsScreen() {
 
     const userDetails = useSelector(state => state.rewards.userDetails)
     const showAddRewards = useSelector(state => state.rewards.showAddRewards)
-    const dispatch = useDispatch();
-    
-    const onAddPress = () => {
-        console.log(userDetails);
-        dispatch(setReward(value+"3"))
-    }
 
     return(
         <View style={styles.containerStyle}>
