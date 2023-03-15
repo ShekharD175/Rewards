@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Pressable, FlatList } from "react-native"
+import { View, StyleSheet, Text, Pressable, FlatList, NativeModules } from "react-native"
 import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import RewardItem from "./RewardItem";
@@ -10,7 +10,17 @@ function RewardListing() {
     const rewards = useSelector(state => state.rewards.rewards);
     const dispatch = useDispatch();
 
+    const { ReactOneCustomMethod } = NativeModules;
+
     const getRewardsData = () => {
+
+        ReactOneCustomMethod.getPhoneID().then((res) => {
+            console.log(res);
+            console.log("RESULT...!!!");
+        }).catch((err) => {
+            console.error(err);
+        });
+
         if(!rewardsSelected) {
             return (
                 rewards.filter((item) => {
